@@ -1,0 +1,89 @@
+1) Visualizza i dati dei clienti di Fornovo che hanno effetuato noleggi e il dipendente che ha inserito il noleggio.
+
+	SELECT clienti.*, prenotazioni.CodUtente
+	FROM clienti, prenotazioni
+	WHERE prenotazioni.CodCliente=cliente.idCliente
+	AND clienti.Residenza="Fornovo"
+
+2) Visualizza le prenotazioni attive (noleggio,data di fine noleggio,statoP,cognome dipendente).
+
+	SELECT idNoleggio,DataFine,StatoP,cognome 
+	FROM prenotazioni, utenti
+	WHERE prenotazioni.CodUtente=utenti.IdUtente
+	AND StatoP="Attivo"
+
+3) Visualizza il numero di auto prenotabili.
+
+	SELECT COUNT(*) AS AutoPrenotabili
+	FROM veicoli
+	WHERE StatoV="Libero"
+
+4) Visualizza le auto prenotabili dato un certo segmento preso da input.
+	
+	SELECT *
+	FROM veicoli
+	WHERE StatoV="Libero"
+	AND Segmento= [inserire segmento]
+
+5) Ordinare le prenotazioni in modo crescente in base al numero di giorni della prenotazione.
+
+	SELECT prenotazioni.*, DataFine-DataInizio AS NumeroGiorni
+	FROM prenotazioni
+	ORDER BY (DataFine-DataInizio) ASC
+
+6) Visualizzare solo i dipendenti che hanno inserito prenotazioni.
+
+	SELECT utenti.*
+	FROM utenti, prenotazioni
+	WHERE utenti.IdUtente=prenotazioni.CodUtente
+	GROUP BY IdUtente 
+
+7) Visualizza i dipendenti che non hanno mai inserito una prenotazione.
+
+	SELECT utenti.*
+	FROM utenti, prenotazioni
+	WHERE IdUtente NOT IN(
+				SELECT CodUtente
+				FROM prenotazioni)
+
+8) Visualizza i veicoli attualmente prenotati e il relativo cliente  e il numero di giorni che manca per restituire il veicolo.
+
+
+	SELECT veicoli.*, Cognome, DataDine-date() AS GiorniRestituzione
+	FROM prenotazioni, clienti, veicoli
+	WHERE prenotazioni.CodCliente=clienti.IdCliente
+	AND prenotazioni.CodVeicolo=veicoli.IdVeicolo
+	AND DataFine>date()
+
+9) Visualizza i veicoli prenotabili (liberi)
+
+	SELECT *
+	FROM veicoli
+	WHERE IdVeicolo NOT IN (
+				  SELECT CodVeicolo
+				  FROM prenotazioni
+				  WHERE DataFine>date())
+
+10) Visualizza i vecoli che non sono mai stati prenotati.
+
+	SELECT *
+	FROM veicoli
+	WHERE IdVeicolo NOT IN (
+				  SELECT CodVeicolo
+				  FROM prenotazioni, veicolo
+				  WHERE prenotazioni.CodVeicolo=veicoli.IdVeicolo)
+
+11) Visualizza il modello di auto che è stato noleggiato più volte.
+
+	SELECT CodVeicolo, COUNT (*) AS NumeroAutoPrenotatePerGruppo
+	FROM veicoli, prenotazioni
+	WHERE prenotazioni.CodVeicolo=veicoli.IdVeicolo
+	GROUP BY CodVeicolo
+	ORDER BY COUNT (*) ASC
+
+12) Visualizza il codice delle prenotazioni e la durata di ogni.
+
+	SELECT IdPrenotazione, DATEDIFF(DataFine,DataInizio) AS GiorniPrenotazioni
+	FROM prenotazioni
+
+  

@@ -1,0 +1,61 @@
+
+FUNZIONI DI MODIFICA DEI DATI (valori, non struttura)
+
+		->	UPDATE
+		->	 SET
+		->	WHERE
+
+1) Modifica la data di inizio di una prenotazione. 
+
+	UPDATE prenotazioni
+	SET DataInizio = 2020-03-20
+	WHERE prenotazioni.IdPrenotazioni = 5
+
+2) Aggiornare il campo StatoP a 'Storico' delle prenotazioni per le quali l'autovettura ha terminato il periodo di noleggio.
+
+	UPDATE prenotazioni 
+	SET StatoP = "Storico"
+	WHERE DataFine<2019-11-18
+
+3) Visualizzare il modello delle autovetture che sono state maggiormente noleggiate e il modello di quelle meno noleggiate.
+
+	SELECT
+	FROM veicoli
+	WHERE 
+				SELECT modello
+				FROM veicoli,prenotazioni
+				WHERE prenotazioni.CodVeicolo=veicoli.IdVeicolo
+				GROUP BY modello
+				ORDER BY COUNT(*) DESC LIMIT1
+
+4) Visualizzare le autovetture noleggiate ordinate dal maggior numero di giorni di noleggio.
+
+	SELECT veicoli.*, DATEDIFF(DataFine,DataInizio) AS GiorniPrenotazioni
+	FROM veicoli,prenotazioni
+	WHERE prenotazioni.CodVeicolo=veicoli.IdVeicolo
+	ORDER BY (GiorniPrenotazioni) DESC
+
+5) Visualizzare il numero di autovetture libere.
+
+	SELECT COUNT(IdVeicolo) AS NumeroVeicoliLiberi
+	FROM 
+	WHERE
+
+6) Visualizzare i dipendenti 'lombatti' e il numero di autovetture prenotate.
+
+	SELECT utenti.*, COUNT(*) AS NumeroPrenotazioniEffetuate
+	FROM utenti,prentazioni
+	WHERE prenotazioni.CodUtente=utenti.IdUtente
+	AND utenti.Ruolo = "dipendente Lombatti"
+
+7) Relativamente dalle prenotazioni visualizzare per ogni località (residenza): il numero di clienti, media.
+
+	SELECT 
+	FROM
+	WHERE 
+
+8) Visualizzare per ogni modello: numero di noleggi, media noleggi, totale dei km. Soltanto quando il numero di noleggi sono non inferiore a due.
+
+	SELECT 
+	FROM
+	WHERE 
