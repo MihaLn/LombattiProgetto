@@ -83,8 +83,22 @@ ORDER BY MAX(DATEDIFF(dataFine,dataInizio)) DESC
 
 
 E) Visualizzare il numero di autovetture libere
+	SELECT COUNT(*) AS autoprenotabili
+	FROM veicoli
+	WHERE idveicolo IN( SELECT codVeicolo	
+				FROM prenotazioni
+				WHERE DATEDIFF(dataFine,CURRENT_DATE)<0)
 F) Visualizzare i dipendenti ‘Lombatti’ e il numero di autovetture prenotate
-G) Relativamente alle prenotazioni visualizzare per ogni località (residenza): il numero di clienti, media.
+
+	SELECT cognome,nome,COUNT(*)
+	FROM prenotazioni,utenti
+	WHERE prenotazioni.codUtente=utenti.idutente
+	GROUP BY Cognome,Nome
+G) Relativamente alle prenotazioni visualizzare per ogni località (residenza): il numero di clienti.
+	SELECT residenza,COUNT(*)
+	FROM clienti,prenotazioni
+	WHERE prenotazioni.codUtente=utenti.idutente
+	GROUP BY residenza
 H)Visualizzare di ogni modello: numero di noleggi, media noleggi, totale dei km. Soltanto quando il numero di noleggi siano non inferiore a due.
 
 *** 
