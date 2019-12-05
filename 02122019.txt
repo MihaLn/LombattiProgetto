@@ -19,6 +19,9 @@ Domanda di mercato (o domanda aggregata)-> E'la somma di tutte le domande indivi
 Questa curva si ottiene sommando orizzontalmente le curve di domanda individuali.Questo
 significa che per ogni prezzo si sommano le quantita ' domandate.
 
+Offerta di mercato -> e'la somma di tutte le offerte individuali (e'la sommatoria delle quantita'di produzione
+di ogni singola impresa).E' una funzione crescente perche' come vi ricordate le imprese sono indotte a produrre di piu'al crescere
+del prezzo di vendita.
 LOGIN:Capella 
 PASSWORD:**********
 
