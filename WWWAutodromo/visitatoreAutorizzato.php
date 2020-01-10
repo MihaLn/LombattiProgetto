@@ -57,6 +57,9 @@ echo("<br> <br> <br>");
 	<fieldset>
 		<input type="button" id="contact" onclick="location.href='PartecipazioneTipoEventi.php'" value="Calendario Partecipazione Tipo Eventi"/>
     </fieldset>
+	<fieldset>
+		<input type="button" id="contact" onclick="location.href='LogOut.php'" value="LogOut"/>
+	</fieldset>
 
 </form>
 </div>
