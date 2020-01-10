@@ -4,11 +4,13 @@
 <title> Autodromo Varano de' Melegari </title>
 </head>
 <body>
+<a href="time.php">Tempo sessione</a>
 <div class="container">  
 <form id="contact">
 <?php
 include("connetti.php");
 session_start();
+$_SESSION["ora"] = time();// Tempo dall inizio della sessione
 $nome=$_SESSION['Nome'];
 $cognome=$_SESSION['Cognome'];
 $email=$_SESSION['Email'];
@@ -60,6 +62,7 @@ echo("<br> <br> <br>");
 	<fieldset>
 		<input type="button" id="contact" onclick="location.href='LogOut.php'" value="LogOut"/>
 	</fieldset>
+
 
 </form>
 </div>
